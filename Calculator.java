@@ -6,8 +6,9 @@ public class Calculator {
     private static boolean wrong_input=false;
 
     public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        input = s.nextLine();
+        try (Scanner s = new Scanner(System.in)) {
+            input = s.nextLine();
+        }
         input=input+"=";
         while (i < input.length()) {
             StringFormation.verify_input(input.charAt(i));
