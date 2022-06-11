@@ -12,7 +12,7 @@ public class Calculator {
         }
         input=input+"=";
         */
-        input="500-5x(25-5)=";
+        input="500-5x(25-(33/-3-8x-2))=";
         while (i < input.length()) {
             StringFormation.verify_input(input.charAt(i));
             if (!StringFormation.allow) {

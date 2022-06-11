@@ -1,10 +1,3 @@
-//package com.romanjandas.calculatorwithsteps;
-
-//import android.util.Log;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class EvaluateString{
         private static final char PLUS='+';
         private static final char MINUS='-';
@@ -12,9 +5,6 @@ public class EvaluateString{
         private static final char MULTIPLY='x';
         private static final char LEFTBRACKET='(';
         private static final char RIGHTBRACKET=')';
-        private static final String DEC_PAT=".00000";
-        private static final String DEC_REP="";
-        private static final String ZERO="0";
 
         private static String process_string="";
         private static String temp_string="initial_random_string";
@@ -75,7 +65,6 @@ public class EvaluateString{
     }
 
     private static void divide_or_multiply(int i,boolean operator){
-        Pattern p=Pattern.compile(DEC_PAT);
         int k,l; String left_stringing="",right_stringing="",leftOfResult="",rightOfResult=""; double leftNumber,rightNumber,resultNumber;
         int j=i;
         j=j-1;
@@ -120,19 +109,10 @@ public class EvaluateString{
             if(operator){
                 resultNumber=leftNumber/rightNumber;
                 process_string=leftOfResult+String.format("%.5f",resultNumber)+rightOfResult;
-                Matcher m=p.matcher(simplify_string(left_of_equation+leftOfResult+String.format("%.5f",resultNumber)+rightOfResult+right_of_equation));
-                if(!ZERO.equals(m.replaceAll(DEC_REP))){
-                    steps=steps+"\n"+m.replaceAll(DEC_REP);
-                }
-
             }
             if(!operator){
                 resultNumber=leftNumber*rightNumber;
                 process_string=leftOfResult+String.format("%.5f",resultNumber)+rightOfResult;
-                Matcher m=p.matcher(simplify_string(left_of_equation+leftOfResult+String.format("%.5f",resultNumber)+rightOfResult+right_of_equation));
-                if(!ZERO.equals(m.replaceAll(DEC_REP))){
-                    steps=steps+"\n"+m.replaceAll(DEC_REP);
-                }
             }
         }
 
