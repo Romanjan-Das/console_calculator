@@ -7,6 +7,7 @@ public class EvaluateString{
         private static int[] bracket_position=new int[2];
   
     public static String evaluate_string(String input_equation){
+        steps=steps+input_equation+"\n";
         while(!temporary_equation.equals(input_equation)){
             temporary_equation=input_equation;
             bracket_position=look_for_brackets(input_equation);
@@ -33,13 +34,16 @@ public class EvaluateString{
                 }        
             }
             process_equation=remove_redundant_plus_and_minus_sign(process_equation);
+            steps=steps+left_of_equation+process_equation+right_of_equation+"\n";
             add_or_subtract(process_equation);
+            steps=steps+left_of_equation+answer+right_of_equation+"\n";
             input_equation=left_of_equation+answer+right_of_equation;
             left_of_equation="";right_of_equation="";
             if(answer.equals(input_equation)){
                 break;
             }
         }    
+        System.out.println(steps);
         return input_equation;
     }
 

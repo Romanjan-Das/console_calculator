@@ -25,7 +25,7 @@ public class StringFormation{
     public static void verify_input(char x){
         //Log.d("mytag",EvaluateString.f_num+". "+"verify_input"+" : "+x); EvaluateString.f_num++;
         if(equal_is_pressed && cn(x)){
-            no_key_pressed=true; allow=false; input_string=""; EvaluateString.steps=""; equal_is_pressed=false;
+            no_key_pressed=true; allow=false; input_string=""; /*EvaluateString.steps="";*/ equal_is_pressed=false;
         }
         else {
             equal_is_pressed=false;
@@ -57,7 +57,7 @@ public class StringFormation{
                 }
                 else if(c==EQ && rbn==lbn && allow){
                     try{
-                        EvaluateString.steps=input_string;
+                        //EvaluateString.steps=input_string;
                         result=EvaluateString.evaluate_string(input_string);
                     }
                     catch(Exception e){
