@@ -27,13 +27,19 @@ public class EvaluateString{
         public static boolean number_too_large=false;
         private static int number_max_size=15;
 
-        public static int f_num=1;
+        private static int[] brackets_position=new int[2];
   
     public static String evaluate_string(String s){
         //Log.d("mytag",f_num+". "+"evaluate_string"+" params--> "+"s="+s); f_num++;
         while(!temp_equation.equals(s)){
             temp_equation=s;
-            process_string=look_for_brackets(s);
+            brackets_position=look_for_brackets(s);
+            if(brackets_position[0]==0&&brackets_position[1]==0){
+                process_string=s;
+            }
+            else{
+                process_string=separate_the_string(brackets_position[0], brackets_position[1], s);
+            }
             process_of_evaluation_of_simple_string();
             s=left_of_equation+answer+right_of_equation;
             left_of_equation="";right_of_equation="";
@@ -228,29 +234,28 @@ public class EvaluateString{
         answer=temp;
     }
 
-    private static String look_for_brackets(String s){
-        //Log.d("mytag",f_num+". "+"look_for_brackets"+" params--> "+"s="+s); f_num++;
-        int leftBracketPosition=0,rightBracketPosition=0,i=0;
-        String s1="";
+    private static int[] look_for_brackets(String s){
+        int i=0;
+        int[] position_of_brackets=new int[2];
         while(true){
             if(i<s.length()){
                 if(LEFTBRACKET==s.charAt(i)){
-                    leftBracketPosition=i;
+                    position_of_brackets[0]=i;
                 }
                 else if(RIGHTBRACKET==s.charAt(i)){
-                    rightBracketPosition=i;
-                    s1=separate_the_string(leftBracketPosition,rightBracketPosition,s);
+                    position_of_brackets[1]=i;
                     break;
                 }
 
             }
             else{
-                s1=s;
+                position_of_brackets[0]=0;
+                position_of_brackets[1]=0;
                 break;
             }
             i++;
         }
-        return s1;
+        return position_of_brackets;
     }
 
     private static String separate_the_string(int a,int b,String s){
