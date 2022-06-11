@@ -6,10 +6,13 @@ public class Calculator {
     private static boolean wrong_input=false;
 
     public static void main(String[] args) {
+        /* 
         try (Scanner s = new Scanner(System.in)) {
             input = s.nextLine();
         }
         input=input+"=";
+        */
+        input="500-5x(25-5)=";
         while (i < input.length()) {
             StringFormation.verify_input(input.charAt(i));
             if (!StringFormation.allow) {
