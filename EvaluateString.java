@@ -1,6 +1,6 @@
 public class EvaluateString{
         private static final char PLUS='+',MINUS='-',DIVIDE='/',MULTIPLY='x',LEFTBRACKET='(',RIGHTBRACKET=')';
-        private static String process_equation="",temp="",answer="",left_of_equation="",right_of_equation="",temporary_equation="";
+        private static String process_equation="",temp="",left_of_equation="",right_of_equation="",temporary_equation="";
         public static String steps="";
         public static boolean number_too_large=false;
         private static int number_max_size=15,m=0;
@@ -35,10 +35,10 @@ public class EvaluateString{
                 }        
             }
             process_equation=remove_redundant_plus_and_minus_sign(process_equation);
-            add_or_subtract(process_equation);
-            input_equation=left_of_equation+answer+right_of_equation;
+            process_equation=add_or_subtract(process_equation);
+            input_equation=left_of_equation+process_equation+right_of_equation;
             left_of_equation="";right_of_equation="";
-            if(answer.equals(input_equation)){
+            if(process_equation.equals(input_equation)){
                 break;
             }
         }
@@ -146,8 +146,10 @@ public class EvaluateString{
     }
 
 
-    private static void add_or_subtract(String s){
-        int i=s.length()-1; String str=""; double num=0;
+    private static String add_or_subtract(String s){
+        int f,i=s.length()-1; 
+        String answer,tmp="",str=""; 
+        double num=0;
         while(i!=-1){
             str=s.charAt(i)+str;
             if(MINUS==s.charAt(i) || PLUS==s.charAt(i) || i==0){
@@ -162,7 +164,7 @@ public class EvaluateString{
             i=i-1;
         }
         answer=String.format("%.5f",num);
-        int f=answer.length()-1; String temp="";
+        f=answer.length()-1;
         while(answer.charAt(f)=='0'){
             f=f-1;
         }
@@ -170,10 +172,11 @@ public class EvaluateString{
             f=f-1;
         }
         while(f>-1){
-            temp=answer.charAt(f)+temp;
+            tmp=answer.charAt(f)+tmp;
             f=f-1;
         }
-        answer=temp;
+        answer=tmp;
+        return answer;
     }
 
 
