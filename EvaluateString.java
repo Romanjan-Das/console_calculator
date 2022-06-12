@@ -7,7 +7,8 @@ public class EvaluateString{
         private static int[] bracket_position=new int[2];
   
     public static String evaluate_string(String input_equation){
-        steps=steps+input_equation+"\n";
+        steps=input_equation;
+        System.out.println(input_equation);
         while(!temporary_equation.equals(input_equation)){
             temporary_equation=input_equation;
             bracket_position=look_for_brackets(input_equation);
@@ -15,7 +16,9 @@ public class EvaluateString{
                 process_equation=input_equation; // no brackets
             }
             else{
-                process_equation=separate_the_string(bracket_position[0], bracket_position[1], input_equation);
+                process_equation=input_equation.substring(bracket_position[0]+1,bracket_position[1]);
+                left_of_equation=input_equation.substring(0,bracket_position[0]);
+                right_of_equation=input_equation.substring(bracket_position[1], input_equation.length()-1);
             }
             process_equation=remove_redundant_plus_and_minus_sign(process_equation);
             while(temp!=process_equation){
@@ -34,16 +37,14 @@ public class EvaluateString{
                 }        
             }
             process_equation=remove_redundant_plus_and_minus_sign(process_equation);
-            steps=steps+left_of_equation+process_equation+right_of_equation+"\n";
             add_or_subtract(process_equation);
-            steps=steps+left_of_equation+answer+right_of_equation+"\n";
             input_equation=left_of_equation+answer+right_of_equation;
             left_of_equation="";right_of_equation="";
             if(answer.equals(input_equation)){
                 break;
             }
         }    
-        System.out.println(steps);
+        //System.out.println(steps);
         return input_equation;
     }
 
@@ -69,26 +70,6 @@ public class EvaluateString{
             i++;
         }
         return position_of_brackets;
-    }
-
-    private static String separate_the_string(int a,int b,String s){
-        String middle_string="",left_string="",right_string="";
-        int i=0,j=b+1;
-        while(i<a){
-            left_string=left_string+s.charAt(i);
-            i++;
-        }
-        while(j<s.length()){
-            right_string=right_string+s.charAt(j);
-            j++;
-        }
-        while(a<b-1){
-            a++;
-            middle_string=middle_string+s.charAt(a);
-        }
-        left_of_equation=left_string;
-        right_of_equation=right_string;
-        return middle_string;
     }
 
     private static String remove_redundant_plus_and_minus_sign(String s){
