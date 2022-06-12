@@ -155,11 +155,11 @@ public class EvaluateString{
         else{
             if(operator==DIVIDE){
                 result=Double.parseDouble(number1)/Double.parseDouble(number2);
-                process_equation=left_of_number1+String.format("%.5f",result)+right_of_number2;
+                process_equation=left_of_number1+trim_decimals(String.format("%.5f",result))+right_of_number2;
             }
             if(operator==MULTIPLY){
                 result=Double.parseDouble(number1)*Double.parseDouble(number2);
-                process_equation=left_of_number1+String.format("%.5f",result)+right_of_number2;
+                process_equation=left_of_number1+trim_decimals(String.format("%.5f",result))+right_of_number2;
             }
         }
 
@@ -167,8 +167,8 @@ public class EvaluateString{
 
 
     private static String add_or_subtract(String s){
-        int f,i=s.length()-1; 
-        String answer,tmp="",str=""; 
+        int i=s.length()-1; 
+        String answer,str=""; 
         double num=0;
         while(i!=-1){
             str=s.charAt(i)+str;
@@ -184,22 +184,25 @@ public class EvaluateString{
             i=i-1;
         }
         answer=String.format("%.5f",num);
-        f=answer.length()-1;
-        while(answer.charAt(f)=='0'){
+
+        return trim_decimals(answer);
+    }
+
+    private static String trim_decimals(String s){
+        int f; String tmp="";
+        f=s.length()-1;
+        while(s.charAt(f)=='0'){
             f=f-1;
         }
-        if(answer.charAt(f)=='.'){
+        if(s.charAt(f)=='.'){
             f=f-1;
         }
         while(f>-1){
-            tmp=answer.charAt(f)+tmp;
+            tmp=s.charAt(f)+tmp;
             f=f-1;
         }
-        answer=tmp;
-        return answer;
+        return tmp;
     }
-
-
 
     private static int length_of_the_number(String x){
         int y=x.length(); int j=0; int val=0;
