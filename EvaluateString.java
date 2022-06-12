@@ -24,11 +24,11 @@ public class EvaluateString{
                 m=0;
                 while(m<process_equation.length()){
                     if(DIVIDE==process_equation.charAt(m)){
-                        divide_or_multiply(m,true);
+                        divide_or_multiply(m,DIVIDE);
                         break;
                     }
                     if(MULTIPLY==process_equation.charAt(m)){
-                        divide_or_multiply(m,false);
+                        divide_or_multiply(m,MULTIPLY);
                         break;
                     }
                     m++;
@@ -98,12 +98,12 @@ public class EvaluateString{
         return tempString;
     }
 
-    private static void divide_or_multiply(int i,boolean operator){
+    private static void divide_or_multiply(int operator_position,char operator){
         String number1="",number2="",left_of_number1="",right_of_number2=""; 
         double result;
         int j; 
 
-        j=i-1;
+        j=operator_position-1;
         while(true){
             j=j-1;
             if(j==-1){
@@ -114,9 +114,9 @@ public class EvaluateString{
                 break;
             }
         }
-        number1=process_equation.substring(j+1, i);
+        number1=process_equation.substring(j+1, operator_position);
 
-        j=i+1;
+        j=operator_position+1;
         while(true){
             j=j+1;
             if(j==process_equation.length()){ 
@@ -127,17 +127,17 @@ public class EvaluateString{
                 break;
             }
         }
-        number2=process_equation.substring(i+1, j);
+        number2=process_equation.substring(operator_position+1, j);
         
         if(length_of_the_number(number1)>number_max_size || length_of_the_number(number2)>number_max_size){
             number_too_large=true;
         }
         else{
-            if(operator){
+            if(operator==DIVIDE){
                 result=Double.parseDouble(number1)/Double.parseDouble(number2);
                 process_equation=left_of_number1+String.format("%.5f",result)+right_of_number2;
             }
-            if(!operator){
+            if(operator==MULTIPLY){
                 result=Double.parseDouble(number1)*Double.parseDouble(number2);
                 process_equation=left_of_number1+String.format("%.5f",result)+right_of_number2;
             }
