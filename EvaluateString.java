@@ -7,18 +7,21 @@ public class EvaluateString{
         private static int[] bracket_position=new int[2];
   
     public static String evaluate_string(String input_equation){
-        int m=0;
+        int m=0; boolean no_brackets;
         String temp="",left_of_equation="",right_of_equation="",temporary_equation="";
+        steps=input_equation+"\n";
         while(!temporary_equation.equals(input_equation)){
             temporary_equation=input_equation;
             bracket_position=look_for_brackets(input_equation);
             if(bracket_position[0]==0 && bracket_position[1]==0){
                 process_equation=input_equation; // no brackets
+                no_brackets=true;
             }
             else{
                 process_equation=input_equation.substring(bracket_position[0]+1,bracket_position[1]);
                 left_of_equation=input_equation.substring(0,bracket_position[0]);
                 right_of_equation=input_equation.substring(bracket_position[1], input_equation.length()-1);
+                no_brackets=false;
             }
             process_equation=remove_redundant_plus_and_minus_sign(process_equation);
             while(temp!=process_equation){
@@ -27,23 +30,38 @@ public class EvaluateString{
                 while(m<process_equation.length()){
                     if(DIVIDE==process_equation.charAt(m)){
                         divide_or_multiply(m,DIVIDE);
+                        process_equation=remove_redundant_plus_and_minus_sign(process_equation);
+                        if(no_brackets){
+                            steps=steps+process_equation+"\n";
+                        }
+                        else{
+                            steps=steps+left_of_equation+"("+process_equation+")"+right_of_equation+"\n";
+                        }
                         break;
                     }
                     if(MULTIPLY==process_equation.charAt(m)){
                         divide_or_multiply(m,MULTIPLY);
+                        process_equation=remove_redundant_plus_and_minus_sign(process_equation);
+                        if(no_brackets){
+                            steps=steps+process_equation+"\n";
+                        }
+                        else{
+                            steps=steps+left_of_equation+"("+process_equation+")"+right_of_equation+"\n";
+                        }
                         break;
                     }
                     m++;
                 }        
             }
-            process_equation=remove_redundant_plus_and_minus_sign(process_equation);
             process_equation=add_or_subtract(process_equation);
             input_equation=left_of_equation+process_equation+right_of_equation;
+            steps=steps+input_equation+"\n";
             left_of_equation="";right_of_equation="";
             if(process_equation.equals(input_equation)){
                 break;
             }
         }
+        System.out.println(steps);
         return input_equation;
     }
 
