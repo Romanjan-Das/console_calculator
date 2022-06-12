@@ -7,8 +7,6 @@ public class EvaluateString{
         private static int[] bracket_position=new int[2];
   
     public static String evaluate_string(String input_equation){
-        steps=input_equation;
-        System.out.println(input_equation);
         while(!temporary_equation.equals(input_equation)){
             temporary_equation=input_equation;
             bracket_position=look_for_brackets(input_equation);
@@ -43,8 +41,7 @@ public class EvaluateString{
             if(answer.equals(input_equation)){
                 break;
             }
-        }    
-        //System.out.println(steps);
+        }
         return input_equation;
     }
 
@@ -102,7 +99,7 @@ public class EvaluateString{
     }
 
     private static void divide_or_multiply(int i,boolean operator){
-        String number1="",number2="",left_of_result="",right_of_result=""; 
+        String number1="",number2="",left_of_number1="",right_of_number2=""; 
         double result;
         int j; 
 
@@ -113,7 +110,7 @@ public class EvaluateString{
                 break;
             }
             if(process_equation.charAt(j)==MINUS || process_equation.charAt(j)==PLUS || process_equation.charAt(j)==MULTIPLY || process_equation.charAt(j)==DIVIDE){    
-                left_of_result=process_equation.substring(0,j+1);
+                left_of_number1=process_equation.substring(0,j+1);
                 break;
             }
         }
@@ -126,7 +123,7 @@ public class EvaluateString{
                 break;
             }
             if(process_equation.charAt(j)==MINUS || process_equation.charAt(j)==PLUS || process_equation.charAt(j)==MULTIPLY || process_equation.charAt(j)==DIVIDE){
-                right_of_result=process_equation.substring(j, process_equation.length());
+                right_of_number2=process_equation.substring(j, process_equation.length());
                 break;
             }
         }
@@ -138,11 +135,11 @@ public class EvaluateString{
         else{
             if(operator){
                 result=Double.parseDouble(number1)/Double.parseDouble(number2);
-                process_equation=left_of_result+String.format("%.5f",result)+right_of_result;
+                process_equation=left_of_number1+String.format("%.5f",result)+right_of_number2;
             }
             if(!operator){
                 result=Double.parseDouble(number1)*Double.parseDouble(number2);
-                process_equation=left_of_result+String.format("%.5f",result)+right_of_result;
+                process_equation=left_of_number1+String.format("%.5f",result)+right_of_number2;
             }
         }
 
