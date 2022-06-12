@@ -105,16 +105,19 @@ public class EvaluateString{
         String number1="",number2="",left_of_result="",right_of_result=""; 
         double result;
         int j; 
-        
+
         j=i-1;
         while(true){
             j=j-1;
-            if((j==-1) || process_equation.charAt(j)==MINUS || process_equation.charAt(j)==PLUS || process_equation.charAt(j)==MULTIPLY || process_equation.charAt(j)==DIVIDE){    
-                number1=process_equation.substring(j+1, i);
-                if(j>-1){  left_of_result=process_equation.substring(0,j+1);}
+            if(j==-1){
+                break;
+            }
+            if(process_equation.charAt(j)==MINUS || process_equation.charAt(j)==PLUS || process_equation.charAt(j)==MULTIPLY || process_equation.charAt(j)==DIVIDE){    
+                left_of_result=process_equation.substring(0,j+1);
                 break;
             }
         }
+        number1=process_equation.substring(j+1, i);
 
         j=i+1;
         while(true){
