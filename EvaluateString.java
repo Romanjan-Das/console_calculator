@@ -104,41 +104,31 @@ public class EvaluateString{
     private static void divide_or_multiply(int i,boolean operator){
         String number1="",number2="",left_of_result="",right_of_result=""; 
         double result;
-        int k,l; 
-        int j=i;
-        j=j-1;
+        int j; 
+        
+        j=i-1;
         while(true){
-            number1=process_equation.charAt(j)+number1;
             j=j-1;
             if((j==-1) || process_equation.charAt(j)==MINUS || process_equation.charAt(j)==PLUS || process_equation.charAt(j)==MULTIPLY || process_equation.charAt(j)==DIVIDE){    
-                k=j;
+                number1=process_equation.substring(j+1, i);
+                if(j>-1){  left_of_result=process_equation.substring(0,j+1);}
                 break;
             }
         }
-        j=i;
-        j=j+1;
+
+        j=i+1;
         while(true){
-            number2=number2+process_equation.charAt(j);
             j=j+1;
             if(j==process_equation.length()){ 
-                l=j-1;
                 break;
             }
             if(process_equation.charAt(j)==MINUS || process_equation.charAt(j)==PLUS || process_equation.charAt(j)==MULTIPLY || process_equation.charAt(j)==DIVIDE){
-                l=j;
-                while(l<process_equation.length()){
-                    right_of_result=right_of_result+process_equation.charAt(l);
-                    l++;
-                }
+                right_of_result=process_equation.substring(j, process_equation.length());
                 break;
             }
         }
-
-
-        while(k>-1){
-            left_of_result=process_equation.charAt(k)+left_of_result;
-            k=k-1;
-        }
+        number2=process_equation.substring(i+1, j);
+        
         if(length_of_the_number(number1)>number_max_size || length_of_the_number(number2)>number_max_size){
             number_too_large=true;
         }
