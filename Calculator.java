@@ -12,7 +12,7 @@ public class Calculator {
         }
         input=input+"=";
         */
-        input="(5+2)x(6+3)+6=";
+        input="(5x2)x(6x3)=";
         while (i < input.length()) {
             StringFormation.verify_input(input.charAt(i));
             if (!StringFormation.allow) {

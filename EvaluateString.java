@@ -8,7 +8,7 @@ public class EvaluateString{
   
     public static String evaluate_string(String input_equation){
         int m=0; boolean no_brackets;
-        String temp="",left_of_equation="",right_of_equation="",temporary_equation="";
+        String temp="",left_of_equation="",right_of_equation="",temporary_equation="",steps_temp="";
         steps=input_equation+"\n";
         while(!temporary_equation.equals(input_equation)){
             temporary_equation=input_equation;
@@ -53,9 +53,12 @@ public class EvaluateString{
                     m++;
                 }        
             }
+            steps_temp=process_equation;
             process_equation=add_or_subtract(process_equation);
             input_equation=left_of_equation+process_equation+right_of_equation;
-            steps=steps+input_equation+"\n";
+            if(!steps_temp.equals(input_equation)){
+                steps=steps+input_equation+"\n";
+            }
             left_of_equation="";right_of_equation="";
             if(process_equation.equals(input_equation)){
                 break;
