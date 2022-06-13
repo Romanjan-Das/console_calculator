@@ -21,7 +21,6 @@ public class EvaluateString{
                 process_equation=input_equation.substring(bracket_position[0]+1,bracket_position[1]);
                 left_of_equation=input_equation.substring(0,bracket_position[0]);
                 right_of_equation=input_equation.substring(bracket_position[1]+1, input_equation.length());
-                System.out.println("right_of_equation: "+right_of_equation);
                 no_brackets=false;
             }
             process_equation=remove_redundant_plus_and_minus_sign(process_equation);
