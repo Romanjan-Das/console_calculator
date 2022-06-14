@@ -1,3 +1,5 @@
+//package com.romanjandas.calculatorwithsteps;
+
 public class EvaluateString{
         private static final char PLUS='+',MINUS='-',DIVIDE='/',MULTIPLY='x',LEFTBRACKET='(',RIGHTBRACKET=')';
         private static String process_equation="";
@@ -9,7 +11,7 @@ public class EvaluateString{
     public static String evaluate_string(String input_equation){
         int m=0; boolean no_brackets;
         String temp="",left_of_equation="",right_of_equation="",temporary_equation="",steps_temp="";
-        steps=input_equation+"\n";
+        steps="steps of operation: \n\n  "+input_equation+"\n";
         while(!temporary_equation.equals(input_equation)){
             temporary_equation=input_equation;
             bracket_position=look_for_brackets(input_equation);
@@ -32,10 +34,10 @@ public class EvaluateString{
                         divide_or_multiply(m,DIVIDE);
                         process_equation=remove_redundant_plus_and_minus_sign(process_equation);
                         if(no_brackets){
-                            steps=steps+process_equation+"\n";
+                            steps=steps+"="+process_equation+"\n";
                         }
                         else{
-                            steps=steps+left_of_equation+"("+process_equation+")"+right_of_equation+"\n";
+                            steps=steps+"="+left_of_equation+"("+process_equation+")"+right_of_equation+"\n";
                         }
                         break;
                     }
@@ -43,10 +45,10 @@ public class EvaluateString{
                         divide_or_multiply(m,MULTIPLY);
                         process_equation=remove_redundant_plus_and_minus_sign(process_equation);
                         if(no_brackets){
-                            steps=steps+process_equation+"\n";
+                            steps=steps+"="+process_equation+"\n";
                         }
                         else{
-                            steps=steps+left_of_equation+"("+process_equation+")"+right_of_equation+"\n";
+                            steps=steps+"="+left_of_equation+"("+process_equation+")"+right_of_equation+"\n";
                         }
                         break;
                     }
@@ -57,7 +59,7 @@ public class EvaluateString{
             process_equation=add_or_subtract(process_equation);
             input_equation=left_of_equation+process_equation+right_of_equation;
             if(!steps_temp.equals(input_equation)){
-                steps=steps+input_equation+"\n";
+                steps=steps+"="+input_equation+"\n";
             }
             left_of_equation="";right_of_equation="";
             if(process_equation.equals(input_equation)){
